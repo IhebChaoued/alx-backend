@@ -7,7 +7,7 @@ from typing import List
 
 
 class Server:
-    """Paginate a database"""
+    """Server class"""
     DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
