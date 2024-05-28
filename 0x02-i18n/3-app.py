@@ -22,6 +22,7 @@ def get_locale():
     """Determine the best match with supported languages"""
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
+
 @app.route('/')
 def index():
     """Route for the root URL"""
