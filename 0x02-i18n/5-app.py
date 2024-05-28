@@ -2,6 +2,7 @@
 """ Mock user login """
 from flask import Flask, render_template, request, g
 from flask_babel import Babel
+from typing import Union, Dict
 
 
 users = {
@@ -25,16 +26,19 @@ babel = Babel(app)
 app.config.from_object(Config)
 
 
-def get_user(user_id):
+def get_user() -> Union[dict, None]:
     """Get user by ID"""
-    return users.get(user_id)
+    id = request.args.get('login_as', None)
+    if id is not None and int(id) in users.keys():
+        return users.get(int(id))
+    return None
 
 
 @app.before_request
 def before_request():
     """Set current user"""
-    user_id = request.args.get('login_as')
-    g.user = get_user(int(user_id)) if user_id else None
+    user = get_user()
+    g.user = user
 
 
 @app.route("/")
